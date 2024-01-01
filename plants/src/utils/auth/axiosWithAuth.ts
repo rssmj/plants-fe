@@ -1,12 +1,14 @@
 import axios, { AxiosInstance } from 'axios';
 
 export const axiosWithAuth = (includeAuthToken = true): AxiosInstance => {
-  const token = includeAuthToken ? localStorage.getItem('token') : null;
+  const AUTH_TOKEN = includeAuthToken
+    ? localStorage.getItem('AUTH_TOKEN')
+    : null;
 
   return axios.create({
     baseURL: 'https://plants-be.onrender.com/api',
     headers: {
-      Authorization: token ? `Bearer ${token}` : '',
+      Authorization: AUTH_TOKEN ? `Bearer ${AUTH_TOKEN}` : '',
     },
   });
 };

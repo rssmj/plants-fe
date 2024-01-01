@@ -1,0 +1,33 @@
+/* Welcome.css */
+
+.welcome-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.welcome-title {
+  font-size: 24px;
+  color: #007bff;
+}
+
+.welcome-message {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.welcome-links {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.welcome-link {
+  text-decoration: none;
+  font-size: 16px;
+  color: #007bff;
+  margin-right: 20px;
+}
+
+.welcome-link:last-child {
+  margin-right: 0;
+}

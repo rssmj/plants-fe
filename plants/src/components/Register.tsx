@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithAuth } from '../utils/auth/axiosWithAuth';
+import '../styles/Register.css';
 
 interface FormData {
   first_name: string;
@@ -30,18 +31,22 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className='register-container'>
+      <h2 className='register-title'>Register</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className='register-form'>
         <div>
           <label>First Name:</label>
           <input {...register('first_name')} />
-          {errors.first_name && <p>{errors.first_name.message}</p>}
+          {errors.first_name && (
+            <p className='error'>{errors.first_name.message}</p>
+          )}
         </div>
         <div>
           <label>Last Name:</label>
           <input {...register('last_name')} />
-          {errors.last_name && <p>{errors.last_name.message}</p>}
+          {errors.last_name && (
+            <p className='error'>{errors.last_name.message}</p>
+          )}
         </div>
         <div>
           <label>Username:</label>
@@ -51,7 +56,9 @@ const Register = () => {
               maxLength: 128,
             })}
           />
-          {errors.username && <p>{errors.username.message}</p>}
+          {errors.username && (
+            <p className='error'>{errors.username.message}</p>
+          )}
         </div>
         <div>
           <label>Password:</label>
@@ -62,7 +69,9 @@ const Register = () => {
               maxLength: 128,
             })}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && (
+            <p className='error'>{errors.password.message}</p>
+          )}
         </div>
         <div>
           <label>Phone:</label>
@@ -72,9 +81,11 @@ const Register = () => {
               maxLength: 15,
             })}
           />
-          {errors.phone && <p>{errors.phone.message}</p>}
+          {errors.phone && <p className='error'>{errors.phone.message}</p>}
         </div>
-        <button type='submit'>Register</button>
+        <button type='submit' className='register-button'>
+          Register
+        </button>
       </form>
     </div>
   );
