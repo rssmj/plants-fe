@@ -1,0 +1,28 @@
+[build]
+  # The directory where your build output is located
+  publish = "dist"  # Change "dist" to your actual build output directory
+  
+  # The command to build your project (e.g., npm run build)
+  command = "npm run build"  # Change this to your actual build command
+
+[[redirects]]
+  # Example redirect rule to handle client-side routing in a SPA
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  # Example header rule to set Cache-Control for assets
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[context.production.environment]
+  # Define environment variables for the production context
+  NODE_ENV = "production"
+  API_URL = "https://plants-be.onrender.com"
+
+[context.deploy-preview.environment]
+  # Define environment variables for deploy preview contexts
+  NODE_ENV = "development"
+  API_URL = "https://plants-be.onrender.com"
