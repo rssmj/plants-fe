@@ -5,13 +5,11 @@ import '../styles/Home.css';
 interface UserData {
   id: string;
   first_name: string;
-  // Add other user properties here as needed
 }
 
 interface PlantData {
   id: string;
   name: string;
-  // Add other plant properties here as needed
 }
 
 const Home = () => {
@@ -30,38 +28,38 @@ const Home = () => {
       }
 
       try {
-        const userResponse = await axiosWithAuth().get<UserData>(
+        const response = await axiosWithAuth().get<UserData>(
           `/users/${userId}`
         );
-        setUserData(userResponse.data);
-        fetchUserPlants();
+        setUserData(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
-      }
-    };
-
-    const fetchUserPlants = async () => {
-      try {
-        const plantsResponse = await axiosWithAuth().get<PlantData[]>(
-          `/plants/user/${userId}`
-        );
-        setPlants(plantsResponse.data);
-      } catch (error) {
-        console.error('Error fetching plants:', error);
       }
     };
 
     fetchUserData();
   }, [userId]);
 
+  useEffect(() => {
+    const fetchPlants = async () => {
+      try {
+        const response = await axiosWithAuth().get<PlantData[]>(
+          `/plants/user/${userId}`
+        );
+        setPlants(response.data);
+      } catch (error) {
+        console.error('Error fetching plants:', error);
+      }
+    };
+
+    fetchPlants();
+  }, [userId]);
+
   const addPlant = async () => {
-    if (!newPlantName) return;
     try {
-      const plantToAdd = { name: newPlantName, userId };
-      const response = await axiosWithAuth().post(
-        `/plants/${userId}`,
-        plantToAdd
-      );
+      const response = await axiosWithAuth().post(`/plants/${userId}`, {
+        name: newPlantName,
+      });
       setPlants([...plants, response.data.plant]);
       setNewPlantName('');
     } catch (error) {
@@ -89,19 +87,25 @@ const Home = () => {
   };
 
   const saveEdit = async () => {
-    if (!editingPlant || !editingName) return;
-    try {
-      await axiosWithAuth().put(`/plants/${editingPlant.id}`, {
-        name: editingName,
-      });
-      setPlants(
-        plants.map((plant) =>
-          plant.id === editingPlant.id ? { ...plant, name: editingName } : plant
-        )
-      );
-      cancelEdit();
-    } catch (error) {
-      console.error('Error updating plant:', error);
+    if (editingPlant) {
+      try {
+        const response = await axiosWithAuth().put(
+          `/plants/${editingPlant.id}`,
+          {
+            name: editingName,
+          }
+        );
+        const updatedPlant = response.data;
+        setPlants(
+          plants.map((plant) =>
+            plant.id === updatedPlant.id ? updatedPlant : plant
+          )
+        );
+        setEditingPlant(null);
+        setEditingName('');
+      } catch (error) {
+        console.error('Error saving edit:', error);
+      }
     }
   };
 
@@ -111,44 +115,75 @@ const Home = () => {
         Welcome to your Dashboard, {userData?.first_name}
       </h2>
 
-      <div className='plants-section'>
-        <h3>Your Plants</h3>
-        {plants.length > 0 ? (
-          plants.map((plant) => (
-            <div key={plant.id} className='plant-item'>
-              {editingPlant?.id === plant.id ? (
-                <div>
-                  <input
-                    type='text'
-                    value={editingName}
-                    onChange={(e) => setEditingName(e.target.value)}
-                  />
-                  <button onClick={saveEdit}>Save</button>
-                  <button onClick={cancelEdit}>Cancel</button>
-                </div>
-              ) : (
-                <div>
-                  <p>{plant.name}</p>
-                  <button onClick={() => startEdit(plant)}>Edit</button>
-                  <button onClick={() => deletePlant(plant.id)}>Delete</button>
-                </div>
-              )}
-            </div>
-          ))
-        ) : (
-          <p>Loading plants...</p>
-        )}
+      <div className='section-container'>
+        <h3 className='section-header'>Your Plants</h3>
+
+        <ul className='plant-list'>
+          {plants.length > 0 ? (
+            plants.map((plant) => (
+              <li key={plant.id} className='plant-list-item'>
+                {editingPlant?.id === plant.id ? (
+                  <div>
+                    <input
+                      type='text'
+                      value={editingName}
+                      onChange={(e) => setEditingName(e.target.value)}
+                    />
+                    <button className='edit-button' onClick={saveEdit}>
+                      Save
+                    </button>
+                    <button className='edit-button' onClick={cancelEdit}>
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <p className='plant-name'>{plant.name}</p>
+                    {/* Add plant details as needed */}
+                    <div className='plant-details'>
+                      {/* Plant details go here */}
+                    </div>
+                    <div>
+                      <button
+                        className='edit-button'
+                        onClick={() => startEdit(plant)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className='delete-button'
+                        onClick={() => deletePlant(plant.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))
+          ) : (
+            <p>No plants added.</p>
+          )}
+        </ul>
       </div>
 
-      <div className='add-plant-section'>
-        <h3>Add a New Plant</h3>
-        <input
-          type='text'
-          value={newPlantName}
-          onChange={(e) => setNewPlantName(e.target.value)}
-          placeholder='Enter plant name'
-        />
-        <button onClick={addPlant}>Add Plant</button>
+      <div className='section-container'>
+        <h3 className='section-header'>Add a New Plant</h3>
+        <div>
+          <input
+            type='text'
+            placeholder='Plant name'
+            value={newPlantName}
+            onChange={(e) => setNewPlantName(e.target.value)}
+          />
+          <button className='edit-button' onClick={addPlant}>
+            Add Plant
+          </button>
+        </div>
+      </div>
+
+      <div className='footer'>
+        <p>© 2024 Plant Manager. All rights reserved.</p>
       </div>
     </div>
   );

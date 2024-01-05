@@ -1,3 +1,53 @@
+/* Home.css
+
+.home-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.home-title {
+  font-size: 24px;
+  color: #007bff;
+}
+
+.plants-section {
+  margin-top: 20px;
+}
+
+.plant-item {
+  margin-bottom: 10px;
+}
+
+.add-plant-section {
+  margin-top: 30px;
+}
+
+.add-plant-section input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
+} */
+
 /* Home.css */
 
 .home-container {
@@ -46,4 +96,121 @@ input {
   border-radius: 5px;
   border: 1px solid #ddd;
   margin-right: 10px;
+}
+
+/* New additions */
+
+.delete-plant-section {
+  margin-top: 20px;
+}
+
+.edit-plant-section {
+  margin-top: 20px;
+}
+
+.edit-plant-section input,
+.delete-plant-section input {
+  margin-bottom: 10px;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+/* Enhancing the responsiveness for better viewing on different devices */
+@media screen and (max-width: 768px) {
+  .home-container,
+  .plants-section,
+  .add-plant-section,
+  .edit-plant-section,
+  .delete-plant-section {
+    margin-top: 10px;
+  }
+
+  button {
+    padding: 8px 15px;
+  }
+
+  .home-title {
+    font-size: 20px;
+  }
+}
+
+/* Home.css - Additional Styles */
+
+/* General container style for sections */
+.section-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Style for the header of each section */
+.section-header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 15px;
+}
+
+/* Style for lists of plants */
+.plant-list {
+  list-style: none;
+  padding: 0;
+}
+
+.plant-list-item {
+  background-color: #e9ecef;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Style for plant names and details */
+.plant-name {
+  font-size: 18px;
+  color: #495057;
+}
+
+.plant-details {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+/* Edit and Delete button styles */
+.edit-button,
+.delete-button {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-button {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #e0a800;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
 }
