@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { axiosWithAuth } from '../utils/auth/axiosWithAuth';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Register.css';
 
 interface FormData {
@@ -11,6 +12,7 @@ interface FormData {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,7 +25,7 @@ const Register = () => {
       const response = await axiosWithAuth().post('/auth/register', data);
       console.log('Registration successful:', response.data);
       reset(); // Reset the form fields after successful registration
-      // Additional success handling
+      navigate('/login'); // Redirect to login page
     } catch (error) {
       console.error('Registration failed:', error);
       // Additional error handling

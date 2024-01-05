@@ -12,3 +12,5 @@ export const axiosWithAuth = (includeAuthToken = true): AxiosInstance => {
     },
   });
 };
+
+export default axiosWithAuth;

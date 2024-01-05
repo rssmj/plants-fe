@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../styles/Welcome.css'; // Import the CSS file for Welcome styling
+import '../styles/Welcome.css';
 
 const Welcome = () => {
   return (

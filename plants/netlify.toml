@@ -1,9 +1,9 @@
 [build]
   # The directory where your build output is located
-  publish = "dist"  # Change "dist" to your actual build output directory
+  publish = "dist"  
   
   # The command to build your project (e.g., npm run build)
-  command = "npm run build"  # Change this to your actual build command
+  command = "npm run build"  
 
 [[redirects]]
   # Example redirect rule to handle client-side routing in a SPA

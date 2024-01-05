@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { axiosWithAuth } from '../utils/auth/axiosWithAuth';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
 
 interface LoginForm {
@@ -15,24 +15,27 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm<LoginForm>();
-
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
 
   const onSubmit = async (data: LoginForm) => {
     try {
       const response = await axiosWithAuth(false).post('/auth/login', data);
+
+      // Extract authToken and username from the response
+      // Adjust these according to your actual API response structure
+      const { authToken, username } = response.data;
+
+      // Store authToken and username in local storage
+      localStorage.setItem('AUTH_TOKEN', authToken);
+      localStorage.setItem('username', username);
+
       console.log('Login successful:', response.data);
       reset(); // Reset the form fields after successful login
-      // Handle successful login (e.g., storing the token, redirecting the user)
 
-      // Ensure 'data.username' is defined or provide a default value
-      const username = data.username || 'default-username';
-
-      // Redirect to the welcome page with the username as a parameter
-      navigate(`/home/${username}`);
+      navigate('/home'); // Redirect to the home page
     } catch (error) {
       console.error('Login failed:', error);
-      // Handle login error (e.g., displaying an error message)
+      // Handle login error
     }
   };
 
