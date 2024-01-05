@@ -19,8 +19,7 @@ const Login = () => {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      const response = await axiosWithAuth(false).post('/auth/login', data);
-
+      const response = await axiosWithAuth().post('/auth/login', data);
       // Extract authToken and username from the response
       // Adjust these according to your actual API response structure
       const { authToken, username } = response.data;

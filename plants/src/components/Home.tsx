@@ -3,13 +3,14 @@ import { axiosWithAuth } from '../utils/auth/axiosWithAuth';
 import '../styles/Home.css';
 
 interface UserData {
-  id: string;
-  first_name: string;
+  id: '';
+  first_name: '';
 }
 
 interface PlantData {
-  id: string;
-  name: string;
+  id: '';
+  name: '';
+  species: '';
 }
 
 const Home = () => {
@@ -49,6 +50,7 @@ const Home = () => {
         setPlants(response.data);
       } catch (error) {
         console.error('Error fetching plants:', error);
+        // Set an error message or handle the error as needed
       }
     };
 
@@ -175,6 +177,7 @@ const Home = () => {
             placeholder='Plant name'
             value={newPlantName}
             onChange={(e) => setNewPlantName(e.target.value)}
+            className='add-plant-input'
           />
           <button className='edit-button' onClick={addPlant}>
             Add Plant
@@ -183,7 +186,7 @@ const Home = () => {
       </div>
 
       <div className='footer'>
-        <p>© 2024 Plant Manager. All rights reserved.</p>
+        <p>2024 WaterMyPlants</p>
       </div>
     </div>
   );
